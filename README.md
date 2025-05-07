@@ -1,4 +1,4 @@
-lique em **"Sim"** para lançar o dado.
+clique em **"Sim"** para lançar o dado.
 
  O jogo mostrará o número sorteado (de 1 a 6).
 
