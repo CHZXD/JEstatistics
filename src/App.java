@@ -2,13 +2,13 @@ import javax.swing.JOptionPane;
 
 public class App {
     public static void main(String[] args) {
-        // Entrada de dados
+        
         double largura = Double.parseDouble(JOptionPane.showInputDialog("Largura do vosso  jardim:").replace(",", "."));
         double comprimento = Double.parseDouble(JOptionPane.showInputDialog("Comprimento do vosso jardim meu senhor :").replace(",", "."));
         double area = largura * comprimento;
         String tamanho = (area > 100) ? "Grandão" : "Pequenininho";
 
-        // Escolha do serviço
+      
         int servico = Integer.parseInt(JOptionPane.showInputDialog(
             "Escolha o serviço:\n1 - Corte de Grama\n2 - Poda\n3 - Plantio\n4 - Corte e Poda\n5 - Quero Tudo"));
         
