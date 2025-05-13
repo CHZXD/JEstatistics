@@ -1,58 +1,71 @@
+import java.util.Arrays;
+
 import javax.swing.JOptionPane;
 
 public class App {
-    public static void main(String[] args) {
-        int numJardins = Integer.parseInt(JOptionPane.showInputDialog("Quantos jardins você tem?"));
-        double somaAreas = 0;
-
-        for (int i = 1; i <= numJardins; i++) {
-            
-            double largura = Double.parseDouble(JOptionPane.showInputDialog("Largura do jardim " + i + ":").replace(",", "."));
-            double comprimento = Double.parseDouble(JOptionPane.showInputDialog("Comprimento do jardim " + i + ":").replace(",", "."));
-            double area = largura * comprimento;
-            somaAreas += area;
-
-            
-            String tamanho = (area > 100) ? "Grandão" : "Pequenininho";
-            JOptionPane.showMessageDialog(null, "Área do Jardim " + i + ": " + area + " m²\nTamanho: " + tamanho);
-
-            
-            String servicos = "";
-            while (true) {
-                String opcao = JOptionPane.showInputDialog(
-                    "Escolha um serviço para o jardim " + i + ":\n" +
-                    "1 - Corte de Grama\n" +
-                    "2 - Poda\n" +
-                    "3 - Plantio\n" +
-                    "4 - Corte e Poda\n" +
-                    "5 - Adubar\n" +
-                    "0 - Finalizar"
-                );
-
-                if (opcao.equals("0")) {
-                    break;
-                }
-
-                switch (opcao) {
-                    case "1": servicos += "Corte de Grama\n"; break;
-                    case "2": servicos += "Poda\n"; break;
-                    case "3": servicos += "Plantio\n"; break;
-                    case "4": servicos += "Corte e Poda\n"; break;
-                    case "5": servicos += "Adubar\n"; break;
-                    default: JOptionPane.showMessageDialog(null, "Serviço inválido.");
-                }
-            }
-
-           
-            if (!servicos.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Serviços para o jardim " + i + ":\n" + servicos);
-            } else {
-                JOptionPane.showMessageDialog(null, "Nenhum serviço escolhido para o jardim " + i + ".");
-            }
-        }
-
+    
+    public static void main(String[] args) throws Exception {
         
-        double media = somaAreas / numJardins;
-        JOptionPane.showMessageDialog(null, "Média da área dos jardins: " + media + " m²");
+        double areaJardim=0, comprimento, largura;
+        double somaArea =0;
+        int areas=0;
+        int areasGrandes=0;
+        double[] areasCalculadas = new double[100];
+        int indice = 0;
+        String todasAreas = "";
+        while (true) {
+            comprimento = Double.parseDouble(JOptionPane.showInputDialog(null,"Comprimento do Jardim: "));
+            largura = Double.parseDouble(JOptionPane.showInputDialog(null,"Largura do Jardim: "));
+            areas++;
+            String[] tamanho = {"Pequeno","Grande"};
+            areaJardim = comprimento*largura;
+
+            areasCalculadas[indice] = areaJardim;
+            indice++;
+
+            if (areaJardim < 100) {
+                JOptionPane.showMessageDialog(null, "Area do Jardim: "+areaJardim+"\nTamanho: "+tamanho[0]);
+            }else {
+                JOptionPane.showMessageDialog(null, "Area do Jardim: "+areaJardim+"\nTamanho: "+tamanho[1]);
+                areasGrandes++;
+            }
+            somaArea = somaArea + areaJardim;
+            int loop = JOptionPane.showConfirmDialog(null, "Deseja Adicionar mais um Terreno? ");
+            if (loop != JOptionPane.YES_OPTION) {     
+                break;
+            }
+
+        }
+        double mediaArea = somaArea/areas;
+        double moda =0;
+        int maiorFrequencia =0;
+        for (int i = 0; i < indice; i++) {
+            todasAreas += "Área " + (i+1) + ": "+areasCalculadas[i] +"m²"+"\n";
+        }
+        JOptionPane.showMessageDialog(null, todasAreas);
+        for (int i = 0; i < areas; i++) {
+            int frequencia=0;
+            for (int j = 0; j < areas; j++) {
+                if (Math.round(areasCalculadas[i]) == Math.round(areasCalculadas[j])) {
+                    frequencia++;
+                }
+            }
+            if (frequencia > maiorFrequencia) {
+                maiorFrequencia =frequencia;
+                moda =areasCalculadas[i];
+            } 
+        }
+        double[] vetorOrdenado = Arrays.copyOf(areasCalculadas, areas); // Copia só os valores usados
+        Arrays.sort(vetorOrdenado);
+
+        // Montar string com áreas ordenadas
+        StringBuilder ordenadas = new StringBuilder();
+        for (double area : vetorOrdenado) {
+            ordenadas.append(String.format("%.2f", area)+"m²").append(" | ");
+        }
+        JOptionPane.showMessageDialog(null, "Moda das Áreas: " + String.format("%.2f", moda)+"m²");
+        JOptionPane.showMessageDialog(null, ordenadas.toString());
+        JOptionPane.showMessageDialog(null, "A média das Áreas: "+String.format("%.2f",mediaArea)+"m²"+"\nÁreas Grandes: "+areasGrandes);
+        
     }
 }
