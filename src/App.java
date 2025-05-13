@@ -1,44 +1,25 @@
 
-
 import javax.swing.JOptionPane;
 
 public class App {
-    public static double calcularArea(double comprimento, double largura) {
-        return comprimento * largura;
-    }
-    public static void exibirDados(String nome, String endereco, double areaJardim, String tamanhoJardim) {
-        JOptionPane.showMessageDialog(null, "Nome: "+nome+"\nEndereço: "+endereco+"\nÁrea do Jardim: "+areaJardim+"\nTamanho do Jardim: "+tamanhoJardim);
-    }
-    public static double calcularMedia(double somaArea, int areas) {
-        return somaArea/areas;
-    }
+    
     public static void main(String[] args) throws Exception {
-        
-        double areaJardim, comprimento, largura;
-        double somaArea = 0;
-        int areas=0;
-        int areasGrandes=0;
-        while (true) {
-            String nome = JOptionPane.showInputDialog("Informe seu Name:");
-            String endereco = JOptionPane.showInputDialog("Nos informe vosso  endereço:");
-            comprimento = Double.parseDouble(JOptionPane.showInputDialog(null,"Comprimento do vosso Jardim: "));
-            largura = Double.parseDouble(JOptionPane.showInputDialog(null,"Largura do vosso Jardim: "));
-            areas++;
-            
-            areaJardim = calcularArea(comprimento, largura);
+        String nomeCliente = JOptionPane.showInputDialog(null,"Prezado Cliente\nPor favor informe seus Dados\nNome:", "Sistema de Serviço para Jardins", JOptionPane.INFORMATION_MESSAGE);
+        String endereco = JOptionPane.showInputDialog(null, "Informe seu endereço:");
+        Cliente cliente = new Cliente(nomeCliente, endereco);
 
-            String tamanhoJardim = (areaJardim < 100) ? "Pequeno" : "Grande";
-            if (areaJardim >= 100) {
-                  areasGrandes++;
-            }
-            exibirDados(nome, endereco, areaJardim, tamanhoJardim);
-            somaArea = somaArea + areaJardim;
-            int loop = JOptionPane.showConfirmDialog(null, "Deseja Adicionar mais um Terreno? ");
-            if (loop != JOptionPane.YES_OPTION) {     
-                break;
-            }
-        }
-        double mediaArea = calcularMedia(somaArea, areas);
-        JOptionPane.showMessageDialog(null, "A média das Áreas:"+mediaArea+"m²"+"\nÁreas Grandes: "+areasGrandes);
+        double comprimento = Double.parseDouble(JOptionPane.showInputDialog(null, "Comprimento do seu Jardim(m):"));
+        double largura = Double.parseDouble(JOptionPane.showInputDialog(null, "Largura do seu Jardim(m):"));
+        Jardim jardim = new Jardim(largura, comprimento);
+        double areaJardim = jardim.calcularArea(largura, comprimento);
+
+        double valorServico = areaJardim * 10;
+        Servico servico = new Servico(valorServico);
+        double valorComDesconto = servico.aplicarDesconto(10);
+        double desconto = valorServico - valorComDesconto;
+
+        cliente.exibir();
+        JOptionPane.showMessageDialog(null, "Área do Jardim: " + areaJardim+"m²"+"\nValor Bruto: R$"+valorServico+"\nDesconto: "+"-"+desconto+"R$"+ "\nValor do Serviço: R$" + valorComDesconto);
+
     }
 }
