@@ -20,11 +20,11 @@ public class App {
         int indice = 0, soma=0,contServ=0;
         String todasAreas = "";
         String desconto="";
-        String nome = JOptionPane.showInputDialog("Cliente querido  \nInforme seus Dados\nNome:");
+        String nome = JOptionPane.showInputDialog("Cliente querido  \nInforme seus dadoss\nNome:");
         String endereco = JOptionPane.showInputDialog("Endereço:");
         while (true) {
-            comprimento = Double.parseDouble(JOptionPane.showInputDialog(null,"Comprimento do Jardim: "));
-            largura = Double.parseDouble(JOptionPane.showInputDialog(null,"Largura do Jardim: "));
+            comprimento = Double.parseDouble(JOptionPane.showInputDialog(null,"Comprimento do vosso Jardim: "));
+            largura = Double.parseDouble(JOptionPane.showInputDialog(null,"Largura do vosso Jardim: "));
             areas++;
             String[] tamanho = {"Pequeno","Grande"};
             areaJardim = comprimento*largura;
@@ -42,7 +42,7 @@ public class App {
                 tiposDeArea[indice - 1] = tamanho[1];
             }
             somaArea = somaArea + areaJardim;
-            int loop = JOptionPane.showConfirmDialog(null, "Deseja Adicionar mais um Terreno? ");
+            int loop = JOptionPane.showConfirmDialog(null, "Deseja Adicionar mais algum território? ");
             if (loop != JOptionPane.YES_OPTION) {     
                 break;
             }
@@ -50,7 +50,7 @@ public class App {
         }
         int qtdAdubacao = 0, qtdPoda = 0, qtdManutencao = 0, qtdPlantio = 0;
         while (true) {
-            int servico = Integer.parseInt(JOptionPane.showInputDialog("Qual Serviço Deseja Contratar:\n1-Adubação R$300,00\n2-Poda R$150,00\n3-Manutenção R$90,00\n4-Plantio R$400,00\n5-Sair"));
+            int servico = Integer.parseInt(JOptionPane.showInputDialog("Qual Serviço Deseja pegar:\n1-Adubação R$300,00\n2-Poda R$150,00\n3-Manutenção R$90,00\n4-Plantio R$400,00\n5-Sair"));
             if (servico!=5) {
              contServ++;
             }else{
